@@ -10,7 +10,73 @@ void setup(){
   
 }
 void draw(){
+}
+void mousePressed(){
+  if(game==1){
+   if(win==0){
+    for(int i=0; i<cols;i++){
+      for(int j=0;j<rows; j++){
+        board[i][j].click(mouseX, mouseY);
+      }
+    }
+   }
+  }
+}
+void keyPressed(){
   
+}
+void checkGame(){
+ int row=0; 
+ for(int col=0; col<cols; col++){
+   if(board[col][row].checkState()==1&&board[col][row+1].checkState()==1&&board[col][row+2].checkState()==1){
+     win=1;
+   }
+   else if(board[row][col].checkState()==1&&board[row+1][col].checkState()==1&&board[row+2][col].checkState()==1){
+     win=1;
+   }
+   else if(board[col][row].checkState()==2&&board[col][row+1].checkState()==2&&board[col][row+2].checkState()==2){
+     win=2;
+   }
+   else if(board[row][col].checkState()==2&&board[row+1][col].checkState()==2&&board[row+2][col].checkState()==2){
+     win=2;
+   }
+   if(board[row][row].checkState()==1&&board[row+1][row+1].checkState()==1&&board[row+2][row+2].checkState()==1){
+       win=1;
+
+ }
+else if(board[row][row].checkState()==2&&board[row+1][row+1].checkState()==2&&board[row+2][row+2].checkState()==1){
+     win=2;
+ 
+}
+else if(board[0][row+2].checkState()==1 && board[1][row+1].checkState()==1 && board[0][row+2].checkState()==1){
+  win=1;
+  
+}
+else if(board[0][row+2].checkState()==2 && board[1][row+1].checkState()==2 && board[0][row+2].checkState()==2){
+  win=2;
+}
+fill(255);
+textSize(20);
+if(win==1){
+  fill(0);
+  text("Player 1 \n Won", board[1][1].checkX()*40,board[1][1].checkY()*50);
+}
+if(win==2){
+  fill(0);
+  text("Player 2 \n Won", board[1][1].checkX()*40,board[1][1].checkY()*50);
+}
+if(win==1||win==2){
+  fill(0);
+  textSize(35);
+  text("Press Enter to Start Again", width/2-width/2+23, height/2-height/6-20);
+}
+if(win==0 && full==0){
+  fill(0);
+  textSize(35);
+  text("Press Enter to Start", width/2-width/2+23, height/2-height/6-20);
+  
+}
+ }
 }
  class Cell{
   private int x;
