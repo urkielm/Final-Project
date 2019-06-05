@@ -1,29 +1,105 @@
 Cell [][] board;
+Cell C;
 int cols=3;
 int rows=3;
 int player=0;
 int win=0;
 int game=0;
 int full=9;
-
+int state=0;
 void setup(){
+  C= new Cell();
+  size(400, 400);
+  smooth();
+  board=new Cell[cols][rows];
+  for(int i=0;i<cols;i++){
+   for(int j=0; j<rows;j++){
+    board[i][j]= new Cell(width/3 *i, height/3*j, width/3, height/3); 
+   }
+  }
   
 }
 void draw(){
+  background(255);
+  
+  if(game==0){
+   fill(0);
+   textSize(20);
+   text("Press Enter to Start", width/2-width/4, height/2);
+   line(mouseX, 20, mouseX, 80);
+  
+
+  }
+  if(game==1)
+  {
+    checkGame();
+    for(int i=0; i<cols;i++)
+    {
+      for(int j=0; j<rows;j++){
+       board[i][j].display(); 
+      }
+    }
+  }
+    
 }
 void mousePressed(){
-  if(game==1){
-   if(win==0){
+  
+  if(game==1 && win==0 ){
+   
     for(int i=0; i<cols;i++){
       for(int j=0;j<rows; j++){
+        
         board[i][j].click(mouseX, mouseY);
-      }
+          //if(state==1){
+    //ellipseMode(CORNER);
+    //stroke(0);
+    //ellipse(x,y,w,h);
+  // }
+  // else if(state==2){
+   // stroke(0);
+    //line(x,y, x+w, y+h);
+    //line(x+w, y, x, y+h);
+   }
+        
+
+      
     }
    }
   }
-}
+
 void keyPressed(){
-  
+  if(game==0){
+   if(key==ENTER)
+   {
+    game=1;
+    full=9;
+   }
+  }
+  else if(game==1 && win==0 && full==0){
+   if(key==ENTER){
+    game=0;
+    for(int i=0; i<cols;i++){
+     for( int j=0; j<rows;j++){
+      board[i][j].clean();
+      win=0;
+      full=9;
+     }
+    }
+   }
+  }
+  else if(game==1 &&(win==1||win==2)){
+   if(key==ENTER){
+    game=0;
+    for(int i=0;i<cols;i++){
+     for(int j=0; j<rows;j++){
+      board[i][j].clean();
+      win=0;
+      full=9;
+     }
+    }
+   
+   }
+  }
 }
 void checkGame(){
  int row=0; 
@@ -83,14 +159,16 @@ if(win==0 && full==0){
   private int y;
   private int w;
   private int h;
-  private int state;
-
- Cell( int x , int y, int w, int h, int state){
+   int state;
+Cell(){
+  
+}
+ Cell( int x , int y, int w, int h){
    this.x=x;
    this.y=y;
    this.w=w;
    this.h=h;
-   this.state=state;
+   
 }
 void click(int x, int y){
   int tx=x;
