@@ -1,14 +1,13 @@
 Cell [][] board;
-Cell C;
+
 int cols=3;
 int rows=3;
 int player=0;
 int win=0;
 int game=0;
 int full=9;
-int state=0;
+
 void setup(){
-  C= new Cell();
   size(400, 400);
   smooth();
   board=new Cell[cols][rows];
@@ -26,7 +25,7 @@ void draw(){
    fill(0);
    textSize(20);
    text("Press Enter to Start", width/2-width/4, height/2);
-   line(mouseX, 20, mouseX, 80);
+   
   
 
   }
@@ -44,28 +43,26 @@ void draw(){
 }
 void mousePressed(){
   
-  if(game==1 && win==0 ){
+  if(game==1){
+    if(win==0){
+    
    
     for(int i=0; i<cols;i++){
       for(int j=0;j<rows; j++){
         
         board[i][j].click(mouseX, mouseY);
-          //if(state==1){
-    //ellipseMode(CORNER);
-    //stroke(0);
-    //ellipse(x,y,w,h);
-  // }
-  // else if(state==2){
-   // stroke(0);
-    //line(x,y, x+w, y+h);
-    //line(x+w, y, x, y+h);
+        
+        
+
    }
         
 
       
     }
    }
+   
   }
+}
 
 void keyPressed(){
   if(game==0){
@@ -104,23 +101,23 @@ void keyPressed(){
 void checkGame(){
  int row=0; 
  for(int col=0; col<cols; col++){
-   if(board[col][row].checkState()==1&&board[col][row+1].checkState()==1&&board[col][row+2].checkState()==1){
+   if(board[col][row].checkState()==1 && board[col][row+1].checkState()==1 && board[col][row+2].checkState()==1){
      win=1;
    }
-   else if(board[row][col].checkState()==1&&board[row+1][col].checkState()==1&&board[row+2][col].checkState()==1){
+   else if(board[row][col].checkState()==1 && board[row+1][col].checkState()==1 && board[row+2][col].checkState()==1){
      win=1;
    }
-   else if(board[col][row].checkState()==2&&board[col][row+1].checkState()==2&&board[col][row+2].checkState()==2){
+   else if(board[col][row].checkState()==2 && board[col][row+1].checkState()==2 && board[col][row+2].checkState()==2){
      win=2;
    }
-   else if(board[row][col].checkState()==2&&board[row+1][col].checkState()==2&&board[row+2][col].checkState()==2){
+   else if(board[row][col].checkState()==2 && board[row+1][col].checkState()==2 && board[row+2][col].checkState()==2){
      win=2;
    }
-   if(board[row][row].checkState()==1&&board[row+1][row+1].checkState()==1&&board[row+2][row+2].checkState()==1){
+   if(board[row][row].checkState()==1 && board[row+1][row+1].checkState()==1 && board[row+2][row+2].checkState()==1){
        win=1;
 
  }
-else if(board[row][row].checkState()==2&&board[row+1][row+1].checkState()==2&&board[row+2][row+2].checkState()==1){
+else if(board[row][row].checkState()==2 && board[row+1][row+1].checkState()==2 && board[row+2][row+2].checkState()==1){
      win=2;
  
 }
@@ -155,25 +152,27 @@ if(win==0 && full==0){
  }
 }
  class Cell{
-  private int x;
-  private int y;
-  private int w;
-  private int h;
-   int state;
+  int x;
+  int y;
+  int w;
+  int h;
+  int state;
 Cell(){
   
 }
- Cell( int x , int y, int w, int h){
-   this.x=x;
-   this.y=y;
-   this.w=w;
-   this.h=h;
+ Cell( int tx , int ty, int tw, int th){
+   x=tx;
+   y=ty;
+   w=tw;
+   h=th;
    
 }
-void click(int x, int y){
-  int tx=x;
-  int ty=y;
-  if(tx>x && tx<x+w && ty<y+h){
+void click(int tx, int ty){
+  int mx= tx;
+  int my=ty;
+   
+  
+  if(mx>x && mx<x+w && my<y+h){
     if(player==0 && state==0){
       state=1;
       full=-1;
@@ -188,7 +187,9 @@ void click(int x, int y){
   
 }
 void clean(){
+  
   state=0;
+  
  }
  int checkState(){
    return state;
@@ -213,6 +214,9 @@ void clean(){
     stroke(0);
     line(x,y, x+w, y+h);
     line(x+w, y, x, y+h);
+   }
+   else{
+     
    }
    
    
