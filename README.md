@@ -25,3 +25,14 @@ the X or O would not appear. I was then able to fix it in the click method, but 
   }
   
   This piece of code resets the board once a player wins. It checks to see if either of them one, and then uses clean to reset the board.
+  
+  ## Built With
+
+* [Processing](https://processing.org/) - The IDE used
+
+## Authors
+
+**Molly Urkiel**
+
+###Acknowledgments
+*Youtube
